@@ -4,7 +4,7 @@ const { Transaction } = require('@iota/iota-sdk/transactions');
 const { IotaClient, getFullnodeUrl } = require('@iota/iota-sdk/client');
 
 async function main() {
-    const { MULTISIG_ACCOUNT_ADDRESS, MOVE_PACKAGE_ID, MOVE_MODULE, MOVE_MODULE_FUNCTION, MOVE_FUNCTION_ARG_ADMIN_CAP_ID, MOVE_FUNCTION_ARG_NFT_DATA_ID, MOVE_FUNCTION_ARG_RECEPIENT_ADDRESS } = process.env;
+    const { NETWORK, MULTISIG_ACCOUNT_ADDRESS, MOVE_PACKAGE_ID, MOVE_MODULE, MOVE_MODULE_FUNCTION, MOVE_FUNCTION_ARG_ADMIN_CAP_ID, MOVE_FUNCTION_ARG_NFT_DATA_ID, MOVE_FUNCTION_ARG_RECEPIENT_ADDRESS } = process.env;
 
     const txb = new Transaction();
 
@@ -23,7 +23,7 @@ async function main() {
         ],
     });
 
-    const client = new IotaClient({ url: getFullnodeUrl('testnet') });
+    const client = new IotaClient({ url: getFullnodeUrl(NETWORK) });
 
     // Build a transaction block so that it can be signed or simulated
     const txBytes = await txb.build({ client });

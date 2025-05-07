@@ -20,7 +20,7 @@ Copy the `.env.example` to `.env` and edit accordingly
 
 ## Transfer object
 
-Use-case is to transfer some object like AdminCap (based on its ID) to another account like multisig.
+Use-case is to transfer some object like AdminCap (based on its ID) to another account like multisig or to delete the object by transferring it to the address of zero `0x0000000000000000000000000000000000000000000000000000000000000000`
 
 Run this cmd: `npm run transfer-obj`
 
