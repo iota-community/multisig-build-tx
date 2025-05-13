@@ -23,7 +23,7 @@ async function main() {
         ],
     });
 
-    const client = new IotaClient({ url: getFullnodeUrl(NETWORK) });
+    const client = new IotaClient({ url: getFullnodeUrl(NETWORK) || (NETWORK === 'mainnet' ? 'https://api.mainnet.iota.cafe' : 'https://api.testnet.iota.cafe') });
 
     // Build a transaction block so that it can be signed or simulated
     const txBytes = await txb.build({ client });
