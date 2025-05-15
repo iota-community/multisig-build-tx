@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: './.env.mint.to.address' });
 const { toHEX } = require('@iota/iota-sdk/utils');
 const { Transaction } = require('@iota/iota-sdk/transactions');
 const { IotaClient, getFullnodeUrl } = require('@iota/iota-sdk/client');

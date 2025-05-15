@@ -1,19 +1,12 @@
-require('dotenv').config();
+require('dotenv').config({ path: './.env.transfer.object' });
 const { Transaction } = require('@iota/iota-sdk/transactions');
 const { IotaClient, getFullnodeUrl } = require('@iota/iota-sdk/client');
 const { Ed25519Keypair } = require('@iota/iota-sdk/keypairs/ed25519');
 
 async function main() {
-    const { NETWORK, OBJECT_ID, NEW_OWNER_ACCOUNT_ADDRESS, CURRENT_OWNER_ACCOUNT_PRIV_KEY, CURRENT_OWNER_ACCOUNT_MNEMONIC } = process.env;
+    const { NETWORK, OBJECT_ID, NEW_OWNER_ACCOUNT_ADDRESS, CURRENT_OWNER_ACCOUNT_MNEMONIC } = process.env;
 
-    let keypair;
-    if (CURRENT_OWNER_ACCOUNT_MNEMONIC) {
-        keypair = Ed25519Keypair.deriveKeypair((CURRENT_OWNER_ACCOUNT_MNEMONIC));
-    } else if (CURRENT_OWNER_ACCOUNT_PRIV_KEY) {
-        keypair = Ed25519Keypair.deriveKeypairFromSeed((CURRENT_OWNER_ACCOUNT_PRIV_KEY));
-    } else {
-        throw new Error('Neither CURRENT_OWNER_ACCOUNT_MNEMONIC nor CURRENT_OWNER_ACCOUNT_PRIV_KEY not set');
-    }
+    const keypair = Ed25519Keypair.deriveKeypair((CURRENT_OWNER_ACCOUNT_MNEMONIC));
 
     const txb = new Transaction();
     const senderAddress = keypair.toIotaAddress();

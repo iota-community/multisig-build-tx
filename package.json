@@ -8,12 +8,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-multisig-txb": "node buildTxb.js",
+    "build-multisig-txb-mint-to-address": "node buildTxbMintToAddress.js",
+    "build-multisig-txb-swirl-stake": "node buildTxbSwirlStake.js",
+    "build-multisig-txb-swirl-unstake": "node buildTxbSwirlUnStake.js",
     "transfer-obj": "node transferObject.js"
   },
   "dependencies": {
     "@iota/bcs": "^0.2.1",
     "@iota/iota-sdk": "^0.6.0",
+    "bignumber.js": "^9.3.0",
     "dotenv": "^16.5.0"
   }
 }
