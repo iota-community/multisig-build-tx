@@ -14,8 +14,33 @@ async function main() {
     // The sender here must be the address of the multisig account
     txb.setSender(MULTISIG_ACCOUNT_ADDRESS);
 
+    let coinResp;
+    try {
+        coinResp = await client.getCoins({
+            owner: MULTISIG_ACCOUNT_ADDRESS,
+        });
+    } catch (err) {
+        console.error('Error fetching staked coins:', err);
+        return;
+    }
+
+    if (coinResp.data.length === 0) {
+        toast.error("No staked coins available");
+        return;
+    }
+
     const stakeAmount = new BigNumber(MOVE_FUNCTION_INPUT_4).multipliedBy(10 ** IOTA_DECIMALS).toString();
-    const [stakedCoin] = txb.splitCoins(txb.gas, [stakeAmount]);
+    const coinFound = coinResp.data.find(
+        (coin) => Number(coin.balance) >= Number(stakeAmount),
+    );
+    if (coinFound.length === 0) {
+        toast.error("No staked coins available");
+        return;
+    }
+    console.log('coinFound:', coinFound);
+
+    const [stakedCoin] = txb.splitCoins(txb.object(coinFound.coinObjectId), [stakeAmount]);
+
     console.log('stakeAmount:', stakeAmount);
     console.log('stakedCoin:', stakedCoin);
 
@@ -28,6 +53,11 @@ async function main() {
             txb.object(MOVE_FUNCTION_INPUT_3),
             stakedCoin,
         ],
+    });
+
+    await client.devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: MULTISIG_ACCOUNT_ADDRESS,
     });
 
     // Build a transaction block so that it can be signed or simulated
