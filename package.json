@@ -11,6 +11,7 @@
     "build-multisig-txb-mint-to-address": "node buildTxbMintToAddress.js",
     "build-multisig-txb-swirl-stake": "node buildTxbSwirlStake.js",
     "build-multisig-txb-swirl-unstake": "node buildTxbSwirlUnStake.js",
+    "build-multisig-txb-request-add-stake": "node buildTxbReqAddStake.js",
     "transfer-obj": "node transferObject.js"
   },
   "dependencies": {
