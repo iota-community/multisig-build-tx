@@ -12,6 +12,7 @@
     "build-multisig-txb-swirl-stake": "node buildTxbSwirlStake.js",
     "build-multisig-txb-swirl-unstake": "node buildTxbSwirlUnStake.js",
     "build-multisig-txb-request-add-stake": "node buildTxbReqAddStake.js",
+    "build-multisig-txb-request-withdraw-stake": "node buildTxbReqWithdrawStake.js",
     "transfer-obj": "node transferObject.js"
   },
   "dependencies": {

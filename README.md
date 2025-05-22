@@ -9,6 +9,8 @@ This utils provides the following scripts
     - `buildTxbMintToAddress.js`: used to build transaction to base64-encoded string that can be input to the multisig interface. The tx here is to call the Admin-privileged `mint_to_address()` function.
     - `buildTxbSwirlStake.js`: used to build transaction to base64-encoded string that can be input to the multisig interface. The tx here is to call the public `stake()` function of Swirl. The sender here is a multisig account.
     - `buildTxbSwirlUnStake.js`: used to build transaction to base64-encoded string that can be input to the multisig interface. The tx here is to call the public `unstake()` function of Swirl. The sender here is a multisig account.
+    - `buildTxbReqAddStake.js`: used to build transaction to base64-encoded string that can be input to the multisig interface. The tx here is to call the public `request_add_stake()` function of `iota_system`. The sender here is a multisig account.
+    - `buildTxbReqWithdrawStake.js`: used to build transaction to base64-encoded string that can be input to the multisig interface. The tx here is to call the public `request_withdraw_stake()` function of `iota_system`. The sender here is a multisig account.
 
 At the end of this README, several multisig-related test screenshots are attached.
 
@@ -18,7 +20,7 @@ Run this cmd: `npm i`
 
 ## Config
 
-Copy the `.env.example` to `.env` and edit accordingly
+Each script has its own `.env.xyz`
 
 ## Transfer object
 
@@ -76,6 +78,22 @@ Run this cmd: `npm run build-multisig-txb-swirl-stake`
 Config file: `.env.swirl.unstake`
 
 Run this cmd: `npm run build-multisig-txb-swirl-unstake`
+
+### request_add_stake
+
+Source: https://docs.iota.org/references/framework/iota-system/iota_system#function-request_add_stake 
+
+Config file: `.env.req.add.stake`
+
+Run this cmd: `npm run build-multisig-txb-request-add-stake`
+
+### request_withdraw_stake
+
+Source: https://docs.iota.org/references/framework/iota-system/iota_system#function-request_withdraw_stake 
+
+Config file: `.env.req.withdraw.stake`
+
+Run this cmd: `npm run build-multisig-txb-request-withdraw-stake`
 
 ## Multisig test
 

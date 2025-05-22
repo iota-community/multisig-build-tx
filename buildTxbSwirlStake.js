@@ -25,7 +25,7 @@ async function main() {
     }
 
     if (coinResp.data.length === 0) {
-        toast.error("No staked coins available");
+        console.error("No staked coins available");
         return;
     }
 
@@ -34,7 +34,7 @@ async function main() {
         (coin) => Number(coin.balance) >= Number(stakeAmount),
     );
     if (coinFound.length === 0) {
-        toast.error("No staked coins available");
+        console.error("No staked coins available");
         return;
     }
     console.log('coinFound:', coinFound);
@@ -55,10 +55,11 @@ async function main() {
         ],
     });
 
-    await client.devInspectTransactionBlock({
+    const res = await client.devInspectTransactionBlock({
         transactionBlock: txb,
         sender: MULTISIG_ACCOUNT_ADDRESS,
     });
+    console.log('Dev inspect result:', res.effects.status);
 
     // Build a transaction block so that it can be signed or simulated
     const txBytes = await txb.build({ client });

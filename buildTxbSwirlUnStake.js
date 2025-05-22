@@ -26,7 +26,7 @@ async function main() {
     }
 
     if (coinResp.data.length === 0) {
-      toast.error("No staked coins available");
+      console.error("No staked coins available");
       return;
     }
 
@@ -35,7 +35,7 @@ async function main() {
       (coin) => Number(coin.balance) >= Number(unstakeAmount),
     );
     if (coinFound.length === 0) {
-      toast.error("No staked coins available");
+      console.error("No staked coins available");
       return;
     }
     console.log('coinFound:', coinFound);
