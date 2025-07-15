@@ -14,12 +14,18 @@
     "build-multisig-txb-request-add-stake": "node buildTxbReqAddStake.js",
     "build-multisig-txb-request-withdraw-stake": "node buildTxbReqWithdrawStake.js",
     "transfer-obj": "node transferObject.js",
-    "add-liquidity": "node buildTxbPoolsFinanceAddLiquidity.js"
+    "add-liquidity": "node buildTxbPoolsFinanceAddLiquidity.js",
+    "bridge-token-L1-L2": "node buildTxbBridgeL1ToL2.js"
   },
   "dependencies": {
     "@iota/bcs": "^0.2.1",
     "@iota/iota-sdk": "^0.6.0",
+    "@iota/isc-sdk": "^0.1.1",
     "bignumber.js": "^9.3.0",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "@noble/hashes": "^1.4.0"
+  },
+  "devDependencies": {
+    "zod": "^3.21.4"
   }
 }
