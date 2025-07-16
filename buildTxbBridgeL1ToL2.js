@@ -1,5 +1,5 @@
 require('dotenv').config({ path: './.env.bridge.L1.To.L2' });
-const { toHEX } = require('@iota/iota-sdk/utils');
+const { toHEX, IOTA_TYPE_ARG } = require('@iota/iota-sdk/utils');
 require('@iota/iota-sdk/transactions');
 const { IotaClient, getFullnodeUrl } = require('@iota/iota-sdk/client');
 const BigNumber = require('bignumber.js');
@@ -49,11 +49,11 @@ async function main() {
     console.log('coinFound:', coinFound);
     const [tokenToBeBridged] = tx.splitCoins(tx.object(coinFound.coinObjectId), [tokenAmount]);
 
-    // Place 
-    // const iotaCoinAmount = BigInt(1 * 1_000_000_000);
-    // const L2_FROM_L1_GAS_BUDGET = 1000000n;
-    // const iotaCoin = iscTx.coinFromAmount({ amount: iotaCoinAmount + L2_FROM_L1_GAS_BUDGET });
-    // iscTx.placeCoinInBag({ coin: iotaCoin, bag, coinType: IOTA_TYPE_ARG });
+    // Place 0.01 IOTA as gas coin for extra payment required by the bridge process!
+    const iotaCoinAmount = BigInt(1 * 1_000_000);
+    const L2_FROM_L1_GAS_BUDGET = 1000000n;
+    const iotaCoin = iscTx.coinFromAmount({ amount: iotaCoinAmount + L2_FROM_L1_GAS_BUDGET });
+    iscTx.placeCoinInBag({ coin: iotaCoin, bag, coinType: IOTA_TYPE_ARG });
 
     // Place token
     iscTx.placeCoinInBag({ coin: tokenToBeBridged, bag, coinType: TOKEN_COIN_TYPE });
@@ -61,8 +61,8 @@ async function main() {
     iscTx.createAndSendToEvm({
         bag,
         transfers: [
-            // Enable this for IOTA as gas coin to be bridged
-            // [IOTA_TYPE_ARG, BigInt(1 * 1_000_000_000)],
+            // Extra IOTA gas coin for the bridge process!
+            [IOTA_TYPE_ARG, iotaCoinAmount],
             
             [TOKEN_COIN_TYPE, tokenAmount],
         ],
