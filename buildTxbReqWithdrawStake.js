@@ -5,10 +5,11 @@ const { IotaClient, getFullnodeUrl } = require('@iota/iota-sdk/client');
 const BigNumber = require('bignumber.js');
 
 async function main() {
-    const { NETWORK, MULTISIG_ACCOUNT_ADDRESS, UNSTAKED_MIN_AMOUNT } = process.env;
+    const { NETWORK, MULTISIG_ACCOUNT_ADDRESS, UNSTAKED_MIN_AMOUNT, OBJECT_ID_TO_WITHDRAW } = process.env;
 
     console.log('MULTISIG_ACCOUNT_ADDRESS:', MULTISIG_ACCOUNT_ADDRESS);
     console.log('UNSTAKED_MIN_AMOUNT:', UNSTAKED_MIN_AMOUNT);
+    console.log('OBJECT_ID_TO_WITHDRAW:', OBJECT_ID_TO_WITHDRAW);
     console.log('NETWORK:', NETWORK);
 
     const client = new IotaClient({ url: getFullnodeUrl(NETWORK) || (NETWORK === 'mainnet' ? 'https://api.mainnet.iota.cafe' : 'https://api.testnet.iota.cafe') });
@@ -50,6 +51,12 @@ async function main() {
     for (const obj of ownedObjectsResp.data) {
         if (Number(obj.data.content?.fields?.principal) >= Number(unstakedAmount)) {
             foundObjId = obj.data.objectId;
+
+            if (OBJECT_ID_TO_WITHDRAW && OBJECT_ID_TO_WITHDRAW !== foundObjId) {
+                // console.warn(`Found object ID ${foundObjId} does not match the specified OBJECT_ID_TO_WITHDRAW ${OBJECT_ID_TO_WITHDRAW}. Continue searching.`);
+                continue;
+            }
+            
             console.log('Found object ID:', foundObjId);
             break;
         }
