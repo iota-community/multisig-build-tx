@@ -15,6 +15,7 @@
     "build-multisig-txb-request-withdraw-stake": "node buildTxbReqWithdrawStake.js",
     "transfer-obj": "node transferObject.js",
     "add-liquidity": "node buildTxbPoolsFinanceAddLiquidity.js",
+    "router-add-liquidity": "node buildTxbRouterAddLiquidity.js",
     "bridge-token-L1-L2": "node buildTxbBridgeL1ToL2.js"
   },
   "dependencies": {
