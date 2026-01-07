@@ -11,6 +11,9 @@ async function main() {
     // The sender here must be the address of the multisig account
     txb.setSender(MULTISIG_ACCOUNT_ADDRESS);
 
+    // Prevents MSafe simulation failures
+    txb.setGasBudget(2000000000); // 2 IOTA
+
     // Set the moveCall to the target Move module function
     txb.moveCall({
         target: `${MOVE_PACKAGE_ID}::${MOVE_MODULE}::${MOVE_MODULE_FUNCTION}`,

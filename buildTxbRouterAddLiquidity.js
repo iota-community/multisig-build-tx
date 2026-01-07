@@ -69,6 +69,9 @@ async function main() {
   // The sender here must be the address of the multisig account
   txb.setSender(MULTISIG_ACCOUNT_ADDRESS);
 
+  // Prevents MSafe simulation failures
+  txb.setGasBudget(2000000000); // 2 IOTA
+
   const coinVUSDAmount = new BigNumber(MOVE_FUNCTION_INPUT_AMOUNT_VUSD)
     .multipliedBy(10 ** COIN_TYPE_VUSD_DECIMALS)
     .toString();
