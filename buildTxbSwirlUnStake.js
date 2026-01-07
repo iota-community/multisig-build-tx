@@ -14,11 +14,18 @@ async function main() {
     // The sender here must be the address of the multisig account
     txb.setSender(MULTISIG_ACCOUNT_ADDRESS);
 
+    // 2. MANUAL GAS BUDGET
+    // Prevents MSafe simulation failures
+    txb.setGasBudget(2000000000); // 2 IOTA
+
     let coinResp;
     try {
         coinResp = await client.getCoins({
             owner: MULTISIG_ACCOUNT_ADDRESS,
-            coinType: `${MOVE_PACKAGE_ID}::cert::CERT`,
+            // coinType: `${MOVE_PACKAGE_ID}::cert::CERT`,
+
+            // Hard-coded the coinType tied to the old package ID due to the new deployment of the package.
+            coinType: `0x346778989a9f57480ec3fee15f2cd68409c73a62112d40a3efd13987997be68c::cert::CERT`,
         });
     } catch (err) {
         console.error('Error fetching staked coins:', err);
